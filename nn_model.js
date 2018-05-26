@@ -34,46 +34,46 @@ export default class NNModel extends Model {
         this.init();
     }
 
-    // init() {
-    //     this.weights = [];
-    //     this.biases = [];
-    //     this.weights[0] = tf.variable(
-    //         tf.randomNormal([this.inputSize, this.hiddenLayerSize])
-    //     );
-    //     this.biases[0] = tf.variable(tf.scalar(Math.random()));
-    //     // Output layer
-    //     this.weights[1] = tf.variable(
-    //         tf.randomNormal([this.hiddenLayerSize, this.outputSize])
-    //     );
-    //     this.biases[1] = tf.variable(tf.scalar(Math.random()));
-    // }
-
-    // predict(inputXs) {
-    //     const x = tensor(inputXs);
-    //     return tf.tidy(()=>{
-    //         const hiddenLayer = tf.sigmoid(x.matMul(this.weights[0]).add(this.biases[0]));
-    //         const outputLayer = tf.sigmoid(hiddenLayer.matMul(this.weights[1]).add(this.biases[1]));
-    //         return outputLayer;
-    //     })
-    // }
-
-    init(){
+    init() {
         this.weights = [];
+        this.biases = [];
         this.weights[0] = tf.variable(
-            tf.randomNormal([this.inputSize+1,this.hiddenLayerSize])
+            tf.randomNormal([this.inputSize, this.hiddenLayerSize])
         );
+        this.biases[0] = tf.variable(tf.scalar(Math.random()));
+        // Output layer
         this.weights[1] = tf.variable(
-            tf.randomNormal([this.hiddenLayerSize+1,this.outputSize])
+            tf.randomNormal([this.hiddenLayerSize, this.outputSize])
         );
+        this.biases[1] = tf.variable(tf.scalar(Math.random()));
     }
-    predict(inputXs){
-        const x = tf.concat([tensor(inputXs),tf.ones([100,1])],1);
+
+    predict(inputXs) {
+        const x = tensor(inputXs);
         return tf.tidy(()=>{
-            const hiddenLayer = tf.concat([tf.sigmoid(x.matMul(this.weights[0])),tf.ones([100,1])],1);
-            const outputLayer = tf.sigmoid(hiddenLayer.matMul(this.weights[1]));
+            const hiddenLayer = tf.sigmoid(x.matMul(this.weights[0]).add(this.biases[0]));
+            const outputLayer = tf.sigmoid(hiddenLayer.matMul(this.weights[1]).add(this.biases[1]));
             return outputLayer;
         })
     }
+
+    // init(){
+    //     this.weights = [];
+    //     this.weights[0] = tf.variable(
+    //         tf.randomNormal([this.inputSize+1,this.hiddenLayerSize])
+    //     );
+    //     this.weights[1] = tf.variable(
+    //         tf.randomNormal([this.hiddenLayerSize+1,this.outputSize])
+    //     );
+    // }
+    // predict(inputXs){
+    //     const x = tf.concat([tensor(inputXs),tf.ones([100,1])],1);
+    //     return tf.tidy(()=>{
+    //         const hiddenLayer = tf.concat([tf.sigmoid(x.matMul(this.weights[0])),tf.ones([100,1])],1);
+    //         const outputLayer = tf.sigmoid(hiddenLayer.matMul(this.weights[1]));
+    //         return outputLayer;
+    //     })
+    // }
     train(inputXs,inputYs){
         this.optimizer.minimize(()=>{
             const predictedYs = this.predict(inputXs);
