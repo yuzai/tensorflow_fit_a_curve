@@ -8,7 +8,6 @@ export function generateData(num, coeff, sigma = 0.04) {
         ]
 
         const x = tf.randomUniform([num], -1, 1);
-
         const y = a.mul(x.pow(tf.scalar(3)))
             .add(b.mul(x.square()))
             .add(c.mul(x))
