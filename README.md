@@ -1,5 +1,5 @@
 ### 代码功能
-三种方法实现曲线拟合,[demo](http://blog.xiaoboma.com/tensorflow_fit_a_curve/dist/)
+三种方法实现曲线拟合,[demo](https://blog.maxiaobo.com.cn/tensorflow_fit_a_curve/dist/)
 
 ### 使用方法
 1. git clone git@github.com:yuzai/tensorflow_fit_a_curve.git
